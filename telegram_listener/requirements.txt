@@ -1,0 +1,15 @@
+# Telegram client
+telethon==1.34.0
+
+# Async utilities
+aiohttp==3.9.1
+
+# Database
+sqlalchemy==2.0.25
+asyncpg==0.29.0
+
+# Redis for publishing events
+redis==5.0.1
+
+# Environment
+python-dotenv==1.0.0

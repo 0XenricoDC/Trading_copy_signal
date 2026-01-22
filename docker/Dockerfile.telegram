@@ -1,0 +1,31 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY telegram_listener/requirements.txt ./telegram_listener/
+COPY backend/requirements.txt ./backend/
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r backend/requirements.txt
+RUN pip install --no-cache-dir -r telegram_listener/requirements.txt
+
+# Copy application code
+COPY telegram_listener/ ./telegram_listener/
+COPY backend/ ./backend/
+COPY workers/ ./workers/
+
+# Create sessions directory
+RUN mkdir -p /app/sessions
+
+# Set Python path
+ENV PYTHONPATH=/app
+
+# Run the Telegram listener
+CMD ["python", "-m", "telegram_listener.main"]

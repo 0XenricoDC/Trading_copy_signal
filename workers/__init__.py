@@ -1,0 +1,1 @@
+"""TradeCopy Celery workers."""

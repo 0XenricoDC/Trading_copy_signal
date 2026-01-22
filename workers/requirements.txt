@@ -1,0 +1,19 @@
+# Celery
+celery==5.3.6
+redis==5.0.1
+
+# Database
+sqlalchemy==2.0.25
+psycopg2-binary==2.9.9
+
+# MT5 (Windows only)
+MetaTrader5==5.0.45; sys_platform == 'win32'
+
+# Encryption
+cryptography==41.0.7
+
+# Logging
+structlog==24.1.0
+
+# HTTP client for webhooks
+httpx==0.26.0
