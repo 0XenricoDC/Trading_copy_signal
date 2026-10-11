@@ -1,0 +1,128 @@
+================================================================================
+                    TRADECOPY - GUIDA RAPIDA ALL'INSTALLAZIONE
+================================================================================
+
+REQUISITI:
+----------
+- Windows 10/11 (64-bit)
+- Docker Desktop (scarica da docker.com)
+- MetaTrader 5 (scarica dal tuo broker)
+
+
+PASSO 1: INSTALLA DOCKER
+------------------------
+1. Vai su https://www.docker.com/products/docker-desktop/
+2. Scarica e installa Docker Desktop
+3. Riavvia il computer
+4. Verifica: apri cmd e scrivi "docker --version"
+
+
+PASSO 2: CONFIGURA IL FILE .ENV
+-------------------------------
+1. Vai nella cartella: C:\Users\gaiad\OneDrive\Desktop\coding\tradeCopy\docker
+2. Copia il file ".env.example" e rinominalo in ".env"
+3. Apri ".env" con Notepad e modifica i valori:
+
+
+VALORI DA CONFIGURARE:
+----------------------
+
+POSTGRES_PASSWORD=TuaPasswordSicura123!
+   ^ Inventa una password sicura per il database
+
+SECRET_KEY=<genera-una-chiave-casuale>
+   ^ Genera su: https://generate-secret.vercel.app/32
+
+FERNET_KEY=<genera-con-Fernet.generate_key()>
+   ^ Genera con Python:
+     python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+
+TELEGRAM_API_ID=12345678
+TELEGRAM_API_HASH=abc123def456...
+   ^ Ottieni da https://my.telegram.org
+   ^ 1. Accedi con il tuo numero
+   ^ 2. Clicca "API development tools"
+   ^ 3. Crea una nuova app
+   ^ 4. Copia api_id e api_hash
+
+TELEGRAM_SESSION_STRING=
+   ^ Lascia vuoto al primo avvio
+   ^ Dopo il primo avvio, copia la stringa dai log
+
+
+PASSO 3: AVVIA IL SISTEMA
+-------------------------
+1. Apri il Prompt dei Comandi (cmd)
+2. Vai nella cartella docker:
+   cd C:\Users\gaiad\OneDrive\Desktop\coding\tradeCopy\docker
+3. Avvia tutto:
+   docker-compose up -d
+4. Aspetta 2-3 minuti
+5. Esegui le migrazioni:
+   docker-compose exec api alembic upgrade head
+
+
+PASSO 4: ACCEDI ALLA WEB APP
+----------------------------
+1. Apri il browser
+2. Vai su: http://localhost:3000
+3. Clicca "Register" e crea un account
+4. Inizia a configurare!
+
+
+COMANDI UTILI:
+--------------
+docker-compose ps              <- Vedi stato servizi
+docker-compose logs api        <- Vedi log del backend
+docker-compose logs -f api     <- Segui log in tempo reale
+docker-compose restart api     <- Riavvia un servizio
+docker-compose down            <- Ferma tutto
+docker-compose down -v         <- Ferma e cancella dati
+
+
+AGGIUNGERE UN CANALE TELEGRAM:
+------------------------------
+1. Trova l'ID del canale:
+   - Su Telegram, cerca @getidsbot
+   - Inoltra un messaggio dal canale al bot
+   - Il bot ti dira' l'ID (es: -1001234567890)
+
+2. Nella web app:
+   - Vai su "Channels"
+   - Clicca "Add Channel"
+   - Inserisci l'ID e un nome
+
+
+AGGIUNGERE UN CONTO MT5:
+------------------------
+1. Nella web app vai su "Accounts"
+2. Clicca "Add Account"
+3. Inserisci:
+   - Login: numero del conto (es: 12345678)
+   - Password: password del conto
+   - Server: nome server broker (es: ICMarkets-Demo)
+
+
+PROBLEMI COMUNI:
+----------------
+
+"Docker non parte"
+-> Riavvia Docker Desktop
+-> Riavvia il computer
+
+"API non funziona"
+-> Controlla: docker-compose logs api
+-> Verifica che il file .env sia corretto
+
+"Telegram non si connette"
+-> Verifica TELEGRAM_API_ID e TELEGRAM_API_HASH
+-> Controlla: docker-compose logs telegram_listener
+
+"MT5 non si connette"
+-> Verifica login/password/server
+-> Prova prima ad accedere manualmente su MT5
+
+
+================================================================================
+Per la guida completa vedi: GUIDA_COMPLETA_TRADECOPY.md
+================================================================================

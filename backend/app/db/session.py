@@ -2,6 +2,7 @@
 
 from typing import AsyncGenerator
 
+from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy.pool import NullPool
 
@@ -54,5 +55,6 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
 async def set_tenant_context(session: AsyncSession, tenant_id: str) -> None:
     """Set the current tenant context for RLS."""
     await session.execute(
-        f"SELECT set_config('app.current_tenant_id', '{tenant_id}', false)"
+        text("SELECT set_config('app.current_tenant_id', :tenant_id, false)"),
+        {"tenant_id": tenant_id}
     )

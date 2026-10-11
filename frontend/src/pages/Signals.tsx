@@ -216,27 +216,33 @@ function ParsePreviewModal({
         {result && (
           <div className="bg-gray-900 rounded-lg p-4 space-y-2">
             <h4 className="font-medium text-white mb-3">Parsed Result:</h4>
-            <div className="grid grid-cols-2 gap-2 text-sm">
-              <span className="text-gray-400">Symbol:</span>
-              <span className="text-white">{result.symbol}</span>
-              <span className="text-gray-400">Direction:</span>
-              <span className={result.direction === 'buy' ? 'text-green-400' : 'text-red-400'}>
-                {result.direction?.toUpperCase()}
-              </span>
-              <span className="text-gray-400">Entry:</span>
-              <span className="text-white">
-                {result.entry_price || 'Market'}
-                {result.entry_price_low && ` (Zone: ${result.entry_price_low} - ${result.entry_price_high})`}
-              </span>
-              <span className="text-gray-400">Stop Loss:</span>
-              <span className="text-red-400">{result.stop_loss}</span>
-              <span className="text-gray-400">Take Profits:</span>
-              <span className="text-green-400">
-                {result.take_profits?.join(', ') || 'None'}
-              </span>
-              <span className="text-gray-400">Confidence:</span>
-              <span className="text-white">{Math.round((result.confidence || 0) * 100)}%</span>
-            </div>
+            {result.success && result.parsed_signal ? (
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                <span className="text-gray-400">Symbol:</span>
+                <span className="text-white">{result.parsed_signal.symbol}</span>
+                <span className="text-gray-400">Direction:</span>
+                <span className={result.parsed_signal.direction === 'buy' ? 'text-green-400' : 'text-red-400'}>
+                  {result.parsed_signal.direction?.toUpperCase()}
+                </span>
+                <span className="text-gray-400">Entry:</span>
+                <span className="text-white">
+                  {result.parsed_signal.entry_price || 'Market'}
+                  {result.parsed_signal.entry_price_low && ` (Zone: ${result.parsed_signal.entry_price_low} - ${result.parsed_signal.entry_price_high})`}
+                </span>
+                <span className="text-gray-400">Stop Loss:</span>
+                <span className="text-red-400">{result.parsed_signal.stop_loss}</span>
+                <span className="text-gray-400">Take Profits:</span>
+                <span className="text-green-400">
+                  {result.parsed_signal.take_profits?.join(', ') || 'None'}
+                </span>
+                <span className="text-gray-400">Confidence:</span>
+                <span className="text-white">{Math.round((result.confidence || 0) * 100)}%</span>
+              </div>
+            ) : (
+              <div className="text-red-400">
+                {result.errors?.join(', ') || 'Failed to parse signal'}
+              </div>
+            )}
             {result.notes && (
               <p className="text-xs text-gray-400 mt-2">Notes: {result.notes}</p>
             )}
