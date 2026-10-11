@@ -1,6 +1,16 @@
-# TradeCopy
+# 📡 TradeCopy — Telegram & FX Blue Signal Copier for MetaTrader 5
 
-A trade copying system that reads signals from Telegram and FX Blue, executes them on MetaTrader 5, with multi-user support (50+ accounts) and a web app for configuration.
+> A trade copying system that reads signals from Telegram and FX Blue, executes them on MetaTrader 5, with multi-user support (50+ accounts) and a web app for configuration.
+
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-backend-009688?logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-dashboard-61DAFB?logo=react&logoColor=black)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?logo=postgresql&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-Celery-DC382D?logo=redis&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-compose-2496ED?logo=docker&logoColor=white)
+![MT5](https://img.shields.io/badge/MetaTrader-5-0A64AD)
+
+<p align="center"><img src="cattura%20esempio/Cattura1.JPG" alt="TradeCopy login screen" width="640"></p>
 
 ## Features
 
